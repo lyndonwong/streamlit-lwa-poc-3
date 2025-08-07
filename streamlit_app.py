@@ -13,7 +13,7 @@ import streamlit.components.v1 as components
 st.set_page_config(layout="wide")
 st.logo("LWA-v2-square.png", size="large")    
 st.image("LWA-demo-lab-bar.png", use_container_width=True )
-st.title("Your Tracker: San Carlos Planning Commission")
+st.title("Your Tracker: Menlo Park Planning Commission")
 
 # Podcast player
 st.subheader("Deep Dive - July 2025 Podcast")
@@ -35,27 +35,27 @@ st.subheader("Key Projects Map")
 st.write("Hover over the pins to see detailed project information. Click on a pin for a popup and to see the project name below.")
 
 # Load the data from the uploaded CSV file
-# Ensure the CSV file 'SCPT_projects_list_1H2025_v6_scrubbed_for_map - SCPT_projects_list_1H2025_v6.csv' is available in the environment.
+# Ensure the CSV file 'MPPC_projects_1H2025_2025-08-06_map_source.csv' is available in the environment.
 try:
     # Using the exact filename provided by the user
-    df = pd.read_csv("SCPT_projects_list_1H2025_v6_scrubbed_for_map - SCPT_projects_list_1H2025_v6.csv")
+    df = pd.read_csv("MPPC_projects_1H2025_2025-08-06_map_source.csv")
 except FileNotFoundError:
-    st.error("Error: The CSV file 'SCPT_projects_list_1H2025_v6_scrubbed_for_map - SCPT_projects_list_1H2025_v6.csv' was not found.")
+    st.error("Error: The CSV file 'MPPC_projects_1H2025_2025-08-06_map_source.csv' was not found.")
     st.stop()
 
 # --- Data Preprocessing and Handling Missing Values ---
 
 # Rename columns for easier access (optional, but good practice)
 df.rename(columns={
-    'Project Name': 'name',
+    'Project': 'name',
     'Latitude': 'latitude',
     'Longitude': 'longitude',
-    'Street Address': 'address',
+    'Address': 'address',
     'City': 'city',
-    'Project Description': 'description',
-    'Public URL': 'url',
-    'Date of Earliest Mention': 'earliest_mention_date', # Renamed
-    'Date of Latest Mention': 'latest_mention_date'    # Renamed
+    'Description': 'description',
+    # 'Public URL': 'url', # 2025-08-06 DEPRECATE until CSV appended
+    'First Mention': 'earliest_mention_date', # Renamed
+    'Last Mention': 'latest_mention_date'    # Renamed
 }, inplace=True)
 
 # Convert latitude and longitude to numeric, coercing errors to NaN
@@ -70,23 +70,23 @@ if len(df) < initial_rows:
 
 # Further filter to ensure only San Carlos projects are shown (if 'City' column exists and is needed)
 if 'city' in df.columns:
-    df = df[df['city'].astype(str).str.contains('San Carlos', case=False, na=False)]
+    df = df[df['city'].astype(str).str.contains('Menlo Park', case=False, na=False)]
     if df.empty:
-        st.warning("No projects found for San Carlos after filtering.")
+        st.warning("No projects found for Menlo Park after filtering.")
         st.stop()
 else:
     st.warning("The 'City' column was not found in the CSV. Displaying all projects with valid coordinates.")
 
-# Center the map around San Carlos, CA
-# Using the mean of the available San Carlos coordinates for a more accurate center
+# Center the map around Menlo Park, CA
+# Using the mean of the available Menlo Park coordinates for a more accurate center
 if not df.empty:
     map_center = [df['latitude'].mean(), df['longitude'].mean()]
 else:
-    # Fallback to a default San Carlos center if no valid data points
-    map_center = [37.5025, -122.2605] # Approximate center of San Carlos
+    # Fallback to a default Menlo Park center if no valid data points
+    map_center = [37.4525, -122.1768] # Burgess Park location
 
 # Create a Folium map object
-map_height = 500  # Set the height of the map
+map_height = 800  # Set the height of the map
 m = folium.Map(location=map_center, zoom_start=13, height=map_height, control_scale=True)
 
 # Add markers for each location
