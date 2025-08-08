@@ -19,13 +19,13 @@ st.title("Your Tracker: Menlo Park Planning Commission")
 
 # Podcast player
 st.subheader("Deep Dive - July 2025 Podcast")
-st.write("Your 5 minute podcast on the big themes and impacts of San Carlos planning commission actions in 1H 2025")
+st.write("Your 5 minute podcast on the big themes and impacts of Menlo Park planning commission actions in 1H 2025")
 try:
-    with open("SCPT_podcast_1H2025.m4a", "rb") as audio_file:
+    with open("MPPC_podcast_source.m4a", "rb") as audio_file:
         audio_bytes = audio_file.read()
     st.audio(audio_bytes, format="audio/m4a")
 except FileNotFoundError:
-    st.error("Error: The audio file 'SCPT_podcast_1H2025.m4a' was not found. Please ensure the file is in the correct directory.")  
+    st.error("Error: The audio file 'MPPC_podcast_source.m4a' was not found. Please ensure the file is in the correct directory.")  
 
 st.markdown('''
             ##### Overview of Commission meetings 1H 2025: 
