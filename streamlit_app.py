@@ -7,6 +7,8 @@ import folium
 from streamlit_folium import st_folium
 # add audio stream support
 import io
+# add video stream support
+from streamlit_player import st_player
 
 # DEPRECATE for this test
 # # Bypass streamlit_folium component, which has bug that causes empty space at bottom of map
@@ -17,22 +19,25 @@ st.logo("LWA-v2-square.png", size="large")
 st.image("LWA-demo-lab-bar.png", use_container_width=True )
 st.title("Your Tracker: Menlo Park Planning Commission")
 
-# Podcast player
-st.subheader("Deep Dive - July 2025 Podcast")
-st.write("Your 5 minute podcast on the big themes and impacts of Menlo Park planning commission actions in 1H 2025")
-try:
-    with open("MPPC_podcast_source.m4a", "rb") as audio_file:
-        audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format="audio/m4a")
-except FileNotFoundError:
-    st.error("Error: The audio file 'MPPC_podcast_source.m4a' was not found. Please ensure the file is in the correct directory.")  
+# Explainer video
+st.subheader("The Explainer")
+st.write("Your 7 minute video on Menlo Park's real estate investment climate in mid 2025.")
+st_player("https://player.vimeo.com/video/1108574373")
 
-st.markdown('''
-            ##### Overview of Commission meetings 1H 2025: 
-            Key discussions during this 6 month period from January through June include the **2045 General Plan Reset**, a comprehensive update addressing housing projections, land use designations, and environmental impacts like air quality and transportation. The **Pulgus Creek Watershed Plan** is also presented, outlining strategies for flood protection, sea level rise, groundwater management, and community education on watershed preservation. Additionally, the **Northeast Area Specific Plan** is explored, detailing a 20-year framework for guiding development, improving connectivity, addressing environmental resilience, and managing parking within a 145-acre district. Finally, the **Downtown Streetscape Master Plan** and **Transportation Demand Management Plan** are presented, aiming to enhance the pedestrian experience, balance transportation modes, and implement sustainable parking strategies, alongside a discussion of objective design standards for new multi-family and mixed-use developments and the **Alexandria Life Science Research and Development Campus** project.     
-            ''')
+# DEPRECATED 8/8/2025
+# Somewhat redundant with explainer video. Also a big in the audio file prevents playback
+# # Podcast player
+# st.subheader("Deep Dive - July 2025 Podcast")
+# st.write("Your 5 minute podcast on the big themes and impacts of Menlo Park planning commission actions in 1H 2025")
+# try:
+#     with open("MPPC_podcast_source.m4a", "rb") as audio_file:
+#         audio_bytes = audio_file.read()
+#     st.audio(audio_bytes, format="audio/m4a")
+# except FileNotFoundError:
+#     st.error("Error: The audio file 'MPPC_podcast_source.m4a' was not found. Please ensure the file is in the correct directory.")  
+
+
 # Add interactive map of projects presented to the Planning Commmission
-
 st.subheader("Key Projects Map")
 st.write("Hover over the pins to see detailed project information. Click on a pin for a popup and to see the project name below.")
 
@@ -148,7 +153,7 @@ for idx, row in df.iterrows():
 # --- DEPRECATED 8/1/2025 to eliminate empty space bug ---
 # --- RESTORED 8/7/2025 to see if folium v 0.25.1 fixes empty space bug
 with st.container():
-     st_data = st_folium(m, width=900, height=600, key="san_carlos_map")
+     st_data = st_folium(m, width=900, height=600, key="menlo_park_map")
 
 # --- DEPRECATED 8/1/2025 to simplify functionality of app ---
 # st.subheader("Selected Project (on click):")
@@ -182,6 +187,12 @@ st.markdown("""
 - Rows with missing Latitude or Longitude values are automatically excluded from the map.
 - If a Public URL or Date information is missing or 'N/A', the relevant field will indicate that.
 """)
+
+# Paragraph overview
+st.markdown('''
+            ##### Overview of Commission meetings 1H 2025: 
+            Key discussions during this 6 month period from January through June include the **2045 General Plan Reset**, a comprehensive update addressing housing projections, land use designations, and environmental impacts like air quality and transportation. The **Pulgus Creek Watershed Plan** is also presented, outlining strategies for flood protection, sea level rise, groundwater management, and community education on watershed preservation. Additionally, the **Northeast Area Specific Plan** is explored, detailing a 20-year framework for guiding development, improving connectivity, addressing environmental resilience, and managing parking within a 145-acre district. Finally, the **Downtown Streetscape Master Plan** and **Transportation Demand Management Plan** are presented, aiming to enhance the pedestrian experience, balance transportation modes, and implement sustainable parking strategies, alongside a discussion of objective design standards for new multi-family and mixed-use developments and the **Alexandria Life Science Research and Development Campus** project.     
+            ''')
 
 st.subheader("Table of Key Projects")
 st.dataframe(df)
