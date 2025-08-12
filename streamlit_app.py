@@ -191,7 +191,10 @@ st.markdown("""
 # Paragraph overview
 st.markdown('''
             ##### Overview of Commission meetings 1H 2025: 
-            Key discussions during this 6 month period from January through June include the **2045 General Plan Reset**, a comprehensive update addressing housing projections, land use designations, and environmental impacts like air quality and transportation. The **Pulgus Creek Watershed Plan** is also presented, outlining strategies for flood protection, sea level rise, groundwater management, and community education on watershed preservation. Additionally, the **Northeast Area Specific Plan** is explored, detailing a 20-year framework for guiding development, improving connectivity, addressing environmental resilience, and managing parking within a 145-acre district. Finally, the **Downtown Streetscape Master Plan** and **Transportation Demand Management Plan** are presented, aiming to enhance the pedestrian experience, balance transportation modes, and implement sustainable parking strategies, alongside a discussion of objective design standards for new multi-family and mixed-use developments and the **Alexandria Life Science Research and Development Campus** project.     
+Menlo Park Planning Commission meetings detail a range of urban development and land-use discussions from January to July 2025. 
++ The commissioners address various residential projects, including single-family homes, multi-family residences, and affordable housing initiatives, often focusing on use permits, architectural control, variances, and environmental reviews under the California Environmental Quality Act (CEQA). 
++ Key themes include the implementation of zoning ordinances, general plan amendments, and the Below Market Rate (BMR) housing agreements, with considerable debate around housing density, environmental impact, infrastructure, and community amenities.
++ Discussions also cover specific concerns like retaining walls, parking, bicycle access, and neighborhood impact, alongside broader city objectives such as addressing the housing crisis and promoting environmental justice.
             ''')
 
 st.subheader("Table of Key Projects")
